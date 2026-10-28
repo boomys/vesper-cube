@@ -11,9 +11,10 @@ import net.minecraft.util.math.MathHelper;
 
 /**
  * The whole creature is one 32x32x32 model unit cube (2 blocks), textured with a
- * face painted on the -Z side of the texture net.
+ * face painted on the -Z side of the texture net. Both Vesper and the boss reuse
+ * it, so the model is generic over the render state it animates.
  */
-public class RedCubeModel extends EntityModel<RedCubeRenderState> {
+public class RedCubeModel<T extends RedCubeRenderState> extends EntityModel<T> {
     private final ModelPart cube;
 
     public RedCubeModel(ModelPart root) {
@@ -31,10 +32,13 @@ public class RedCubeModel extends EntityModel<RedCubeRenderState> {
     }
 
     @Override
-    public void setAngles(RedCubeRenderState state) {
+    public void setAngles(T state) {
         this.cube.yaw = state.relativeHeadYaw * 0.017453292F;
         this.cube.pitch = state.pitch * 0.017453292F * 0.6F;
-        // Slow breathing bob so the cube never looks completely static.
-        this.cube.originY = 16.0F + MathHelper.sin(state.age * 0.15F) * 1.5F;
+        // Slow breathing bob so the cube never looks completely static, plus a
+        // small nod every time it opens its mouth.
+        float bob = MathHelper.sin(state.age * 0.15F) * 1.5F;
+        float nod = state.mouthOpen ? MathHelper.sin(state.age * 0.9F) * 1.2F : 0.0F;
+        this.cube.originY = 16.0F + bob + nod;
     }
 }
