@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generates the mod's pixel art assets (entity texture + mod icon) with no dependencies."""
+"""Generates the mod's pixel art assets (entity texture, icon, spawn egg) with no dependencies."""
 import os
 import struct
 import zlib
@@ -90,12 +90,28 @@ def icon():
     return canvas
 
 
+def spawn_egg():
+    """16x16 spawn egg icon (1.21.5 spawn eggs are plain item models, not tinted)."""
+    canvas = Canvas(16, 16, (0, 0, 0, 0))
+    for y in range(16):
+        for x in range(16):
+            nx = (x - 7.5) / 5.5
+            ny = (y - 8.0) / 6.5
+            if nx * nx + ny * ny <= 1.0:
+                canvas.rows[y][x] = RED_DARK if 7 <= y <= 9 else RED
+    for x, y in ((5, 5), (6, 5), (5, 6)):
+        canvas.rows[y][x] = RED_LIGHT
+    return canvas
+
+
 def main():
     target = os.path.join(ROOT, "src/main/resources/assets/vespercube")
     texture = entity_texture()
     png(os.path.join(target, "textures/entity/red_cube.png"), texture.width, texture.height, texture.pixels())
     logo = icon()
     png(os.path.join(target, "icon.png"), logo.width, logo.height, logo.pixels())
+    egg = spawn_egg()
+    png(os.path.join(target, "textures/item/red_cube_spawn_egg.png"), egg.width, egg.height, egg.pixels())
 
 
 if __name__ == "__main__":

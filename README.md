@@ -3,6 +3,8 @@
 Kırmızı, iki blokluk bir küp. Oyuncuyu hedef alır, peşinden gelir ve önüne çıkan blokları yiyip yok eder.
 Videodaki "Vesper" tarzı kırmızı küp yaratığın Fabric modu olarak yeniden yapımı.
 
+**Minecraft 1.21.5 + Fabric** için derlenir.
+
 ![Vesper Cube ikonu](src/main/resources/assets/vespercube/icon.png)
 
 ## Özellikler
@@ -17,26 +19,28 @@ Videodaki "Vesper" tarzı kırmızı küp yaratığın Fabric modu olarak yenide
 
 | Gereksinim | Sürüm |
 | --- | --- |
-| Minecraft | 1.21.1 |
-| Fabric Loader | 0.16.0+ |
-| Fabric API | zorunlu |
+| Minecraft | 1.21.5 |
+| Fabric Loader | 0.20.0+ |
+| Fabric API | zorunlu (0.128.x) |
 | Java | 21 |
 
 ## Kurulum
 
-1. [Fabric Loader](https://fabricmc.net/use/installer/) ile Minecraft 1.21.1 profili oluştur.
-2. `mods` klasörüne **Fabric API** ve derlenen `vesper-cube-1.0.0.jar` dosyasını at.
+1. [Fabric Loader](https://fabricmc.net/use/installer/) ile Minecraft **1.21.5** profili oluştur.
+2. `mods` klasörüne **Fabric API** ve derlenen `vesper-cube-1.1.0.jar` dosyasını at.
 3. Oyunu Fabric profiliyle başlat.
+
+Sunucuda da aynı jar + Fabric API gerekir; istemci ve sunucu tarafı aynı sürümde olmalı.
 
 ## Derleme
 
-Gradle 8.10 ve JDK 21 gerekir (depoda wrapper yok, isteğe bağlı olarak `gradle wrapper` ile üretebilirsin):
+Gradle 8.14 ve JDK 21 gerekir (depoda wrapper yok, isteğe bağlı olarak `gradle wrapper` ile üretebilirsin):
 
 ```bash
 gradle build
 ```
 
-Çıkan jar: `build/libs/vesper-cube-1.0.0.jar`
+Çıkan jar: `build/libs/vesper-cube-1.1.0.jar`
 
 Geliştirme için:
 
@@ -55,6 +59,14 @@ Doğal doğma henüz eklenmedi; yaratık spawn egg veya komutla çağrılıyor.
 Doğduktan sonra yakınındaki oyuncuyu hedefler; hedefi varken önündeki blokları yemeye başlar.
 Blokların arkasına saklanmak onu durdurmaz: duvarı yer.
 
+## 1.21.5 notları
+
+1.21.5 render hattı render state tabanlıdır: model `RedCubeRenderState` üzerinden çizilir
+(`EntityModel<RedCubeRenderState>`), renderer üç tip parametresi alır
+(`MobEntityRenderer<RedCubeEntity, RedCubeRenderState, RedCubeModel>`).
+Spawn egg renkleri artık kodda değil, `assets/vespercube/items/red_cube_spawn_egg.json`
+model tanımı ve `textures/item/red_cube_spawn_egg.png` dokusuyla tanımlanır.
+
 ## Proje yapısı
 
 ```
@@ -64,9 +76,13 @@ src/main/java/com/vespercube/
 └── client/
     ├── VesperCubeClient.java       # model katmanı + renderer kaydı
     ├── RedCubeModel.java           # tek küplük model (32x32x32 birim)
+    ├── RedCubeRenderState.java     # render state (1.21.5)
     └── RedCubeRenderer.java        # doku bağlama
 src/main/resources/assets/vespercube/
 ├── textures/entity/red_cube.png    # 128x64 doku ağı (yüz ön yüzde)
+├── textures/item/red_cube_spawn_egg.png
+├── items/red_cube_spawn_egg.json   # item model tanımı
+├── models/item/red_cube_spawn_egg.json
 ├── icon.png                        # mod ikonu
 └── lang/{en_us,tr_tr}.json
 tools/gen_assets.py                 # dokuları yeniden üretir (bağımlılıksız Python)
@@ -81,8 +97,8 @@ Her push'ta **Actions → build** iş akışı jar'ı üretir ve artifact olarak
 Sürüm çıkarmak için etiket at (jar otomatik olarak GitHub Release'e eklenir):
 
 ```bash
-git tag v1.0.0
-git push origin v1.0.0
+git tag v1.1.0
+git push origin v1.1.0
 ```
 
 ## Lisans
