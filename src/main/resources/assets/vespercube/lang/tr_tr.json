@@ -4,5 +4,19 @@
   "entity.vespercube.red_cube.build_done": "Vesper: Evin hazır.",
   "entity.vespercube.red_cube.builds_on": "Vesper: inşa modu açık.",
   "entity.vespercube.red_cube.builds_off": "Vesper: inşa modu kapalı.",
-  "item.vespercube.red_cube_spawn_egg": "Vesper Çağırma Yumurtası"
+  "entity.vespercube.red_cube.line1": "Vesper: Buradayım, merak etme.",
+  "entity.vespercube.red_cube.line2": "Vesper: Bu dünya... tuhaf kokuyor.",
+  "entity.vespercube.red_cube.line3": "Vesper: Bir ev daha ister misin?",
+  "entity.vespercube.red_cube.line4": "Vesper: Beni yalnız bırakma.",
+  "entity.vespercube.cube_tyrant": "Küp Tiranı",
+  "entity.vespercube.cube_tyrant.awaken": "Küp Tiranı uyandı!",
+  "entity.vespercube.cube_tyrant.enraged": "Küp Tiranı öfkelendi!",
+  "entity.vespercube.cube_tyrant.defeated": "Küp Tiranı yenildi.",
+  "command.vesper.players_only": "Bu komut sadece oyuncular tarafından kullanılabilir.",
+  "command.vesper.no_cube": "Yakında Vesper yok.",
+  "command.vesper.no_arena": "Arena boyutu yüklenemedi.",
+  "command.vesper.arena.enter": "Arena'ya ışınlandın. Vesper de yanında.",
+  "command.vesper.arena.leave": "Arena'dan çıktın.",
+  "item.vespercube.red_cube_spawn_egg": "Vesper Çağırma Yumurtası",
+  "item.vespercube.cube_tyrant_spawn_egg": "Küp Tiranı Çağırma Yumurtası"
 }

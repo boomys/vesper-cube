@@ -4,5 +4,19 @@
   "entity.vespercube.red_cube.build_done": "Vesper: Your house is ready.",
   "entity.vespercube.red_cube.builds_on": "Vesper: building enabled.",
   "entity.vespercube.red_cube.builds_off": "Vesper: building disabled.",
-  "item.vespercube.red_cube_spawn_egg": "Vesper Spawn Egg"
+  "entity.vespercube.red_cube.line1": "Vesper: I'm right here, don't worry.",
+  "entity.vespercube.red_cube.line2": "Vesper: This world smells strange.",
+  "entity.vespercube.red_cube.line3": "Vesper: Do you want another house?",
+  "entity.vespercube.red_cube.line4": "Vesper: Don't leave me alone.",
+  "entity.vespercube.cube_tyrant": "Cube Tyrant",
+  "entity.vespercube.cube_tyrant.awaken": "The Cube Tyrant has awakened!",
+  "entity.vespercube.cube_tyrant.enraged": "The Cube Tyrant is enraged!",
+  "entity.vespercube.cube_tyrant.defeated": "The Cube Tyrant has been defeated.",
+  "command.vesper.players_only": "This command can only be used by players.",
+  "command.vesper.no_cube": "No Vesper nearby.",
+  "command.vesper.no_arena": "The arena dimension could not be loaded.",
+  "command.vesper.arena.enter": "You were teleported to the arena. Vesper came along.",
+  "command.vesper.arena.leave": "You left the arena.",
+  "item.vespercube.red_cube_spawn_egg": "Vesper Spawn Egg",
+  "item.vespercube.cube_tyrant_spawn_egg": "Cube Tyrant Spawn Egg"
 }
