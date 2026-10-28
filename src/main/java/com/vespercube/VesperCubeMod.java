@@ -1,5 +1,6 @@
 package com.vespercube;
 
+import com.vespercube.entity.CubeTyrantEntity;
 import com.vespercube.entity.RedCubeEntity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -36,19 +37,42 @@ public class VesperCubeMod implements ModInitializer {
                     .build(RED_CUBE_KEY)
     );
 
+    public static final RegistryKey<EntityType<?>> CUBE_TYRANT_KEY = RegistryKey.of(
+            RegistryKeys.ENTITY_TYPE, Identifier.of(MOD_ID, "cube_tyrant"));
+
+    public static final EntityType<CubeTyrantEntity> CUBE_TYRANT = Registry.register(
+            Registries.ENTITY_TYPE,
+            CUBE_TYRANT_KEY,
+            EntityType.Builder.create(CubeTyrantEntity::new, SpawnGroup.MONSTER)
+                    .dimensions(3.2F, 3.2F)
+                    .maxTrackingRange(12)
+                    .build(CUBE_TYRANT_KEY)
+    );
+
     public static final Item RED_CUBE_SPAWN_EGG = Registry.register(
             Registries.ITEM,
             Identifier.of(MOD_ID, "red_cube_spawn_egg"),
             new SpawnEggItem(RED_CUBE, new Item.Settings())
     );
 
+    public static final Item CUBE_TYRANT_SPAWN_EGG = Registry.register(
+            Registries.ITEM,
+            Identifier.of(MOD_ID, "cube_tyrant_spawn_egg"),
+            new SpawnEggItem(CUBE_TYRANT, new Item.Settings())
+    );
+
     @Override
     public void onInitialize() {
         FabricDefaultAttributeRegistry.register(RED_CUBE, RedCubeEntity.createRedCubeAttributes());
+        FabricDefaultAttributeRegistry.register(CUBE_TYRANT, CubeTyrantEntity.createCubeTyrantAttributes());
 
-        ItemGroupEvents.modifyEntriesEvent(SPAWN_EGGS_GROUP)
-                .register(entries -> entries.add(RED_CUBE_SPAWN_EGG));
+        ItemGroupEvents.modifyEntriesEvent(SPAWN_EGGS_GROUP).register(entries -> {
+            entries.add(RED_CUBE_SPAWN_EGG);
+            entries.add(CUBE_TYRANT_SPAWN_EGG);
+        });
 
-        LOGGER.info("Vesper loaded: ready to build.");
+        VesperCommands.register();
+
+        LOGGER.info("Vesper Cube loaded: the cube is hungry.");
     }
 }
