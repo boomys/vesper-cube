@@ -3,7 +3,7 @@
   "id": "vespercube",
   "version": "${version}",
   "name": "Vesper Cube",
-  "description": "A giant red cube that hunts players down and eats the world around it.",
+  "description": "Vesper: a red cube companion that follows you, builds houses block by block and smashes the place up when it gets hurt.",
   "authors": [
     "Vesper Cube contributors"
   ],

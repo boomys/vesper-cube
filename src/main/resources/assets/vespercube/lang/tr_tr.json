@@ -1,4 +1,8 @@
 {
-  "entity.vespercube.red_cube": "Vesper Küpü",
-  "item.vespercube.red_cube_spawn_egg": "Vesper Küpü Çağırma Yumurtası"
+  "entity.vespercube.red_cube": "Vesper",
+  "entity.vespercube.red_cube.build_start": "Vesper: Sana bir ev yapıyorum!",
+  "entity.vespercube.red_cube.build_done": "Vesper: Evin hazır.",
+  "entity.vespercube.red_cube.builds_on": "Vesper: inşa modu açık.",
+  "entity.vespercube.red_cube.builds_off": "Vesper: inşa modu kapalı.",
+  "item.vespercube.red_cube_spawn_egg": "Vesper Çağırma Yumurtası"
 }

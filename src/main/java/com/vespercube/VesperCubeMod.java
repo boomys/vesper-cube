@@ -30,7 +30,7 @@ public class VesperCubeMod implements ModInitializer {
     public static final EntityType<RedCubeEntity> RED_CUBE = Registry.register(
             Registries.ENTITY_TYPE,
             RED_CUBE_KEY,
-            EntityType.Builder.create(RedCubeEntity::new, SpawnGroup.MONSTER)
+            EntityType.Builder.create(RedCubeEntity::new, SpawnGroup.CREATURE)
                     .dimensions(2.0F, 2.0F)
                     .maxTrackingRange(10)
                     .build(RED_CUBE_KEY)
@@ -49,6 +49,6 @@ public class VesperCubeMod implements ModInitializer {
         ItemGroupEvents.modifyEntriesEvent(SPAWN_EGGS_GROUP)
                 .register(entries -> entries.add(RED_CUBE_SPAWN_EGG));
 
-        LOGGER.info("Vesper Cube loaded: the cube is hungry.");
+        LOGGER.info("Vesper loaded: ready to build.");
     }
 }

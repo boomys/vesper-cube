@@ -1,4 +1,8 @@
 {
-  "entity.vespercube.red_cube": "Vesper Cube",
-  "item.vespercube.red_cube_spawn_egg": "Vesper Cube Spawn Egg"
+  "entity.vespercube.red_cube": "Vesper",
+  "entity.vespercube.red_cube.build_start": "Vesper: I'm building you a house!",
+  "entity.vespercube.red_cube.build_done": "Vesper: Your house is ready.",
+  "entity.vespercube.red_cube.builds_on": "Vesper: building enabled.",
+  "entity.vespercube.red_cube.builds_off": "Vesper: building disabled.",
+  "item.vespercube.red_cube_spawn_egg": "Vesper Spawn Egg"
 }
