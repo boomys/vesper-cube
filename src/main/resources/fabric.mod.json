@@ -3,7 +3,7 @@
   "id": "vespercube",
   "version": "${version}",
   "name": "Vesper Cube",
-  "description": "Vesper: a red cube companion that follows you, builds houses block by block and smashes the place up when it gets hurt.",
+  "description": "Vesper: a red cube companion that follows you, talks with an animated mouth, builds houses block by block, and drags you into an arena dimension to fight the Cube Tyrant.",
   "authors": [
     "Vesper Cube contributors"
   ],
