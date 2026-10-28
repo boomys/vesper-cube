@@ -24,19 +24,22 @@ public class VesperCubeMod implements ModInitializer {
     private static final RegistryKey<ItemGroup> SPAWN_EGGS_GROUP = RegistryKey.of(
             RegistryKeys.ITEM_GROUP, Identifier.ofVanilla("spawn_eggs"));
 
+    public static final RegistryKey<EntityType<?>> RED_CUBE_KEY = RegistryKey.of(
+            RegistryKeys.ENTITY_TYPE, Identifier.of(MOD_ID, "red_cube"));
+
     public static final EntityType<RedCubeEntity> RED_CUBE = Registry.register(
             Registries.ENTITY_TYPE,
-            Identifier.of(MOD_ID, "red_cube"),
+            RED_CUBE_KEY,
             EntityType.Builder.create(RedCubeEntity::new, SpawnGroup.MONSTER)
                     .dimensions(2.0F, 2.0F)
                     .maxTrackingRange(10)
-                    .build(MOD_ID + ":red_cube")
+                    .build(RED_CUBE_KEY)
     );
 
     public static final Item RED_CUBE_SPAWN_EGG = Registry.register(
             Registries.ITEM,
             Identifier.of(MOD_ID, "red_cube_spawn_egg"),
-            new SpawnEggItem(RED_CUBE, 0xB0151E, 0x2A0509, new Item.Settings())
+            new SpawnEggItem(RED_CUBE, new Item.Settings())
     );
 
     @Override

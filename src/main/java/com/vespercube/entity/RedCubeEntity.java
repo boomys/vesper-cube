@@ -34,11 +34,11 @@ public class RedCubeEntity extends HostileEntity {
 
     public static DefaultAttributeContainer.Builder createRedCubeAttributes() {
         return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 80.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.26)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 9.0)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.6)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 40.0);
+                .add(EntityAttributes.MAX_HEALTH, 80.0)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.26)
+                .add(EntityAttributes.ATTACK_DAMAGE, 9.0)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.6)
+                .add(EntityAttributes.FOLLOW_RANGE, 40.0);
     }
 
     @Override
