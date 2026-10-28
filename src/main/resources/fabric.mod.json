@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "vespercube",
+  "version": "${version}",
+  "name": "Vesper Cube",
+  "description": "A giant red cube that hunts players down and eats the world around it.",
+  "authors": [
+    "Vesper Cube contributors"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/vespercube/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.vespercube.VesperCubeMod"
+    ],
+    "client": [
+      "com.vespercube.client.VesperCubeClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": "*",
+    "minecraft": "~1.21.1",
+    "java": ">=21"
+  }
+}
