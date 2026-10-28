@@ -15,5 +15,6 @@ public class VesperCubeClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityModelLayerRegistry.registerModelLayer(RED_CUBE_LAYER, RedCubeModel::getTexturedModelData);
         EntityRendererRegistry.register(VesperCubeMod.RED_CUBE, RedCubeRenderer::new);
+        EntityRendererRegistry.register(VesperCubeMod.CUBE_TYRANT, CubeTyrantRenderer::new);
     }
 }
