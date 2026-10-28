@@ -7,4 +7,6 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
  * animation inputs here instead of reading the entity during rendering.
  */
 public class RedCubeRenderState extends LivingEntityRenderState {
+    /** True while the cube is talking, used to swap in the open-mouth texture. */
+    public boolean mouthOpen;
 }
