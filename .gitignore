@@ -9,6 +9,8 @@ run/
 # Local toolchains downloaded for building in this workspace
 tools/jdk/
 tools/gradle/
+.jdk/
+.g/
 
 # Scratch files
 .tmp/
