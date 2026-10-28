@@ -9,6 +9,9 @@ import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,18 +32,29 @@ import java.util.List;
 
 /**
  * Vesper, the red cube companion: it follows the nearest player, builds a small
- * house every minute or so, and starts tearing blocks apart when it gets hurt.
+ * house every minute or so, talks (which opens its mouth), and starts tearing
+ * blocks apart when it gets hurt.
  */
 public class RedCubeEntity extends PathAwareEntity {
     private static final int BUILD_COOLDOWN_TICKS = 1200;
     private static final double FOLLOW_DISTANCE = 4.0;
     private static final double SEARCH_RADIUS = 32.0;
+    private static final String[] LINES = {
+            "entity.vespercube.red_cube.line1",
+            "entity.vespercube.red_cube.line2",
+            "entity.vespercube.red_cube.line3",
+            "entity.vespercube.red_cube.line4"
+    };
+
+    private static final TrackedData<Boolean> TALKING =
+            DataTracker.registerData(RedCubeEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     private final List<HouseBlueprint.Piece> blueprint = new ArrayList<>();
     private int buildIndex;
     private int buildTicker;
     private int buildCooldown = 200;
     private int angryTicker;
+    private int talkTicks;
     private float lastHealth = -1.0F;
     private boolean buildsEnabled = true;
 
@@ -58,6 +72,12 @@ public class RedCubeEntity extends PathAwareEntity {
     }
 
     @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(TALKING, false);
+    }
+
+    @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 12.0F));
@@ -71,6 +91,10 @@ public class RedCubeEntity extends PathAwareEntity {
 
         if (this.getWorld().isClient) {
             return;
+        }
+
+        if (this.talkTicks > 0 && --this.talkTicks == 0) {
+            this.stopTalking();
         }
 
         this.trackHealth();
@@ -101,6 +125,38 @@ public class RedCubeEntity extends PathAwareEntity {
         if (this.buildsEnabled && owner != null && this.age % 20 == 0) {
             this.startBuild(owner);
         }
+    }
+
+    /** Syncs to every client, which swaps in the open-mouth texture. */
+    public boolean isTalking() {
+        return this.dataTracker.get(TALKING);
+    }
+
+    public void startTalking(int ticks) {
+        this.talkTicks = Math.max(ticks, 20);
+        this.dataTracker.set(TALKING, true);
+    }
+
+    private void stopTalking() {
+        this.dataTracker.set(TALKING, false);
+        this.setCustomNameVisible(false);
+        this.setCustomName(null);
+    }
+
+    /** Shows the line above Vesper and flaps its mouth while it is on screen. */
+    public void speak(Text line) {
+        if (this.getWorld().isClient) {
+            return;
+        }
+        this.setCustomName(line);
+        this.setCustomNameVisible(true);
+        this.startTalking(line.getString().length() * 4);
+        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(),
+                SoundEvents.ENTITY_VILLAGER_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.6F);
+    }
+
+    public void speak(String line) {
+        this.speak(Text.literal("Vesper: " + line));
     }
 
     private void trackHealth() {
@@ -144,7 +200,7 @@ public class RedCubeEntity extends PathAwareEntity {
         this.buildIndex = 0;
         this.buildTicker = 0;
         this.getNavigation().stop();
-        owner.sendMessage(Text.translatable("entity.vespercube.red_cube.build_start"), false);
+        this.speak(Text.translatable("entity.vespercube.red_cube.build_start"));
     }
 
     private void advanceBuild() {
@@ -167,11 +223,8 @@ public class RedCubeEntity extends PathAwareEntity {
         this.blueprint.clear();
         this.buildIndex = 0;
         this.buildCooldown = BUILD_COOLDOWN_TICKS;
+        this.speak(Text.translatable("entity.vespercube.red_cube.build_done"));
 
-        PlayerEntity owner = this.nearestPlayer();
-        if (owner != null) {
-            owner.sendMessage(Text.translatable("entity.vespercube.red_cube.build_done"), false);
-        }
         if (this.getWorld() instanceof ServerWorld serverWorld) {
             serverWorld.spawnParticles(ParticleTypes.HAPPY_VILLAGER,
                     this.getX(), this.getY() + 1.0, this.getZ(), 12, 0.6, 0.6, 0.6, 0.02);
@@ -207,10 +260,11 @@ public class RedCubeEntity extends PathAwareEntity {
         if (this.getWorld().isClient) {
             return ActionResult.SUCCESS;
         }
+
         this.buildsEnabled = !this.buildsEnabled;
-        player.sendMessage(Text.translatable(this.buildsEnabled
+        this.speak(Text.translatable(this.buildsEnabled
                 ? "entity.vespercube.red_cube.builds_on"
-                : "entity.vespercube.red_cube.builds_off"), false);
+                : "entity.vespercube.red_cube.builds_off"));
         return ActionResult.SUCCESS;
     }
 
